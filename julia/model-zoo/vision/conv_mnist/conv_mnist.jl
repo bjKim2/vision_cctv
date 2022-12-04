@@ -95,6 +95,7 @@ end
 # We create the LeNet5 "constructor". It uses Flux's built-in [Convolutional and pooling layers](https://fluxml.ai/Flux.jl/stable/models/layers/#Convolution-and-Pooling-Layers):
 
 
+
 function LeNet5(; imgsize=(28,28,1), nclasses=10) 
     out_conv_size = (imgsize[1]÷4 - 3, imgsize[2]÷4 - 3, 16)
     
