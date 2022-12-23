@@ -95,7 +95,6 @@ end
 # We create the LeNet5 "constructor". It uses Flux's built-in [Convolutional and pooling layers](https://fluxml.ai/Flux.jl/stable/models/layers/#Convolution-and-Pooling-Layers):
 
 
-
 function LeNet5(; imgsize=(28,28,1), nclasses=10) 
     out_conv_size = (imgsize[1]÷4 - 3, imgsize[2]÷4 - 3, 16)
     
@@ -222,6 +221,23 @@ function train(; kws...)
             @info "Model saved in \"$(modelpath)\""
         end
     end
+end
+
+args = Args()
+train_loader, test_loader = get_data(args)
+
+model = LeNet5()
+ps = Flux.params(model)  
+opt = ADAM(args.η) 
+# device = cpu
+@showprogress for (x, y) in train_loader
+    # x, y = x |> device, y |> device
+    gs = Flux.gradient(ps) do
+            ŷ = model(x)
+            loss(ŷ, y)
+        end
+
+    Flux.Optimise.update!(opt, ps, gs)
 end
 
 # The function `train` performs the following tasks:

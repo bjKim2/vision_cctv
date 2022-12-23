@@ -70,7 +70,8 @@ class ImageViewer(QMainWindow):
             image = cv2.rectangle(image , pt1=pt1 , pt2=pt2 , color=(255,0,0), thickness=2)
             image = cv2.putText(img=image, text=label[0], org= pt1,fontFace=cv2.FONT_HERSHEY_PLAIN ,fontScale=4,color=(0,255,0),thickness=5)
         
-        self.openImage(image=self.toQImage(image))
+        self.openImage(image=self.toQImage(cv2.resize(image,(1080,1080))))
+        # self.openImage(image=self.toQImage(image))
         
     def read_label(self,image_path):
         label_path = os.path.dirname(image_path).split('/images')[0] +'/labels/'+ os.path.basename(image_path)[:-4] + '.txt'
@@ -157,7 +158,8 @@ class ImageViewer(QMainWindow):
                 """
                 이미지 처리
                 """
-                self.openImage(image=self.toQImage(image))
+                self.openImage(image=self.toQImage(cv2.resize(image,(1080,1080))))
+                # self.openImage(image=self.toQImage(image))
                 print('\r' + self.img_list[self.pos], end="")
                                                 
         elif e.key() == 68:
@@ -182,7 +184,8 @@ class ImageViewer(QMainWindow):
             이미지 처리
             """
             
-            self.openImage(image=self.toQImage(image))            
+            self.openImage(image=self.toQImage(cv2.resize(image,(1080,1080))))
+            # self.openImage(image=self.toQImage(image))            
             print('\r' + self.img_list[self.pos], end="")
         
         elif e.key() == 80:
