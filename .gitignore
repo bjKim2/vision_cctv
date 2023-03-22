@@ -1,3 +1,6 @@
 
 *.csv
 *.pickle
+*.trt
+*.onnx
+*.pt
