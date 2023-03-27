@@ -1,0 +1,3 @@
+nc: 19
+names: ['safety_belt','no_safety_belt','fastening_hook','no_fastening_hook','boots','no_boots','hat','no_hat','excavator','Payloader','forklift','Tipper','Truck_,Mixer','pump_car','pile_driving','truck','aerial_platform','tower_crane','Boom_lift']
+
