@@ -1,0 +1,4 @@
+ex)
+python export.py --weights ./yolov7_w6_crowdhuman.pt --grid --end2end --simplify --topk-all 100 --iou-thres 0.33 --conf-thres 0.35 --img-size 1280 1280 --dynamic-batch
+python build_engine.py -o ./yolov7_w6_crowdhuman.onnx -e ./yolov7_w6_crowdhuman.trt --fp16 --batch-size 1 16 32 --img 1280 1280
+
