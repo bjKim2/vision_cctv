@@ -1,0 +1,22 @@
+tensorrt 사용법
+
+1. 기존 모델 tensorrt 변환
+yolov7 폴더에서 command line 명령어 
+
+python export.py --weights '웨이트파일명.pt' --grid --simplify --topk-all 100 --iou-thres 0.33 --conf-thres 0.35 --img-size 1280 1280 --dynamic-batch
+git clone https://github.com/triple-Mu/YOLO-TensorRT8.git
+cd YOLO-TensorRT8
+python build_engine.py -o '웨이트파일명.onnx' -e '웨이트파일명.trt' --fp16 --batch-size 1 16 32
+
+이 까지 완료되면 .trt 파일이 생성되면 정상
+
+2-1 trt 파일의  detect_trt.py 모듈 사용법 
+
+python detect_trt.py --img 1280 --nosave --source ~/Datasets/coco2017/images/val2017/ --weights yolov7_w6_crowdhuman_epoch852_size1280.trt --conf-thres 0.5 --iou-thres 0.65
+(주의할 점은 --img 사이즈는 1번 과정에서 변환할때 img-size 크기와 동일한 크기를 쓰지 않으면 오류남)
+
+2-2 trt 파일의 test_trt.py 모듈 사용법
+python test_trt.py --img 1280 --data /media/tekim/tekim/datasets/crowdhuman/data.yaml --weights ./yolov7_w6_crowdhuman_epoch852_size1280.trt --conf-thres 0.001 --iou-thres 0.65
+(주의할 점은 --img 사이즈는 1번 과정에서 변환할때 img-size 크기와 동일한 크기를 쓰지 않으면 오류남)
+(test 모듈 의 conf 는 자동조절되므로 0.001 로 해야함)
+

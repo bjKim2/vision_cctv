@@ -16,7 +16,6 @@ import pickle
 class ImageViewer(QMainWindow):
     def __init__(self,imgs,save_dir,scale):
         super(ImageViewer, self).__init__()
-        
 
         if os.path.exists('./log.txt'):
             with open('./log.txt', 'r') as f:
@@ -27,24 +26,16 @@ class ImageViewer(QMainWindow):
                 self.lognum = [0,0]
 
         self.prekey = ''
-                
-            
 
         self.gray_color_table = [qRgb(i, i, i) for i in range(256)]
         self.base_path = imgs
-        # print(os.path.join(self.base_path, '*.jpg'))
 
         self.img_list = glob.glob(os.path.join(self.base_path, 'images/*.jpg'))
-        
-        # with open('./aihub_construction/img_list.pkl','rb') as f:
-        #     imgs_list = pickle.load(f)
-        # self.img_list = [i[3:] for i in imgs_list ]
-        # print(self.img_list)
+
         self.label_list = [os.path.dirname(image_path).split('/images')[0] +'/labels/'+ os.path.basename(image_path)[:-4] + '.txt' for image_path in self.img_list]
         
         self.img_list.sort()
         self.label_list.sort()
-        # print(self.label_list[0])
         self.pos = self.lognum[0] - self.lognum[1] 
         if self.pos >= len(self.img_list):
             self.pos =len(self.img_list) -1
@@ -56,8 +47,6 @@ class ImageViewer(QMainWindow):
         self.printer = QPrinter()
         self.width = int(960 * scale)
         self.height = int(540 * scale)
-        
-        
 
         self.imageLabel = QLabel()
         self.imageLabel.setBackgroundRole(QPalette.Base)
@@ -288,7 +277,7 @@ class ImageViewer(QMainWindow):
                 print(os.path.join(self.save_dir + 'filtered_images'))
                 shutil.move(self.img_list[self.pos] ,os.path.join(self.save_dir + '/filtered_images'))
                 shutil.move( self.img_list[self.pos].replace('images','labels')[:-3] + 'txt' ,os.path.join(self.save_dir + '/filtered_labels')  )
-                
+
                 self.openImage(image=self.toQImage(cv2.resize((cv2.putText(img=image , text='moved',color=(255,0,0),org=(int(image.shape[1]/2.3),image.shape[0]//4), fontScale=1,thickness=4,fontFace=cv2.FONT_HERSHEY_COMPLEX)),(self.width,self.height))))
             except:
                 self.openImage(image=self.toQImage(cv2.resize((cv2.putText(img=image , text='no_file',color=(0,255,0),org=(int(image.shape[1]/2.3),image.shape[0]//4), fontScale=1,thickness=4,fontFace=cv2.FONT_HERSHEY_COMPLEX)),(self.width,self.height))))
@@ -303,7 +292,6 @@ if __name__ == '__main__':
     import sys
     parser = argparse.ArgumentParser()
     parser.add_argument('--img_path', type=str , default= '.')
-    # parser.add_argument('--label-path', type=str , default= '.')
     parser.add_argument('--save-path', type=str , default= '.')
     parser.add_argument('--scale', type=float , default= 1)
     opt = parser.parse_args()
